@@ -38,13 +38,16 @@ export default {
     return {
       isBotTyping: false,
       typingDelay: 100,
-      session_id: null,
-      messages: [],
+      messages: [{
+        session_id: null,
+        messages: []
+      }],
       inputMessage: '',
       currentChatIndex: null,
       chats: [],
       showDeleteModal: false,
-      ChatToDelete: null,
+
+
     };
   },
 
@@ -68,7 +71,11 @@ export default {
       if (this.currentChatIndex !== null) {
         this.chats[this.currentChatIndex].messages.push(newMessage);
       } else {
-        this.chats.push({ messages: [newMessage] });
+        const newChat = {
+          session_id: this.session_id,
+          messages: [newMessage]
+        }
+        this.chats.push(newChat);
         this.currentChatIndex = this.chats.length - 1;
       }
 
@@ -105,12 +112,14 @@ export default {
     async addNewChat() {
       this.messages = [];
       this.currentChatIndex = null;
-      this.session_id = null;
       await this.connect();
     },
 
     openChat(index) {
       this.currentChatIndex = index;
+      console.log("Chat Index:", index);
+      this.session_id = this.chats[this.currentChatIndex].session_id;
+      console.log("Still the same session_id ?:",this.session_id);
       this.messages = [...this.chats[this.currentChatIndex].messages];
     },
 
