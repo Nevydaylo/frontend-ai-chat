@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <ChatComponent />
+    
   </div>
 </template>
 
@@ -8,11 +9,13 @@
 import ChatComponent from './components/ChatComponent.vue';
 
 
+
 export default {
   name: 'App',
   components: {
         ChatComponent
-  }
+  }, 
+
 }
 </script>
 
